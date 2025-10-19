@@ -1,6 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as codebuild from 'aws-cdk-lib/aws-codebuild';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class CdkStack extends cdk.Stack {
@@ -13,6 +14,19 @@ export class CdkStack extends cdk.Stack {
             enforceSSL: true,
             removalPolicy: cdk.RemovalPolicy.RETAIN,
             autoDeleteObjects: false,
+            
         });
-  }
+        // CodeBuild project to run Playwright tests
+        const project = new codebuild.Project(this, 'PlaywrightTestProject01', {
+            source: codebuild.Source.gitHub({
+                owner: 'Surge0101',
+                repo: 'Playwright',
+            }),
+
+            environment: {
+                buildImage: codebuild.LinuxBuildImage.STANDARD_7_0,
+            }
+        });
+    }
 }
+
