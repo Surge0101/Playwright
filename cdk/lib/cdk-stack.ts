@@ -40,7 +40,7 @@ export class CdkStack extends cdk.Stack {
                     API_URL: { value: 'https://api.example.com' },
                 },
             },
-            buildSpec: codebuild.BuildSpec.fromSourceFilename('buildspec.yml'),
+            buildSpec: codebuild.BuildSpec.fromSourceFilename('cdk/buildspec.yml'),
             // role: serviceRole,
         });
             
