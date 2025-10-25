@@ -10,6 +10,7 @@ phases:
     commands:
       - echo "Current Build ID is $CODEBUILD_BUILD_ID"
       - BUILD_UUID=$(echo $CODEBUILD_BUILD_ID | cut -d':' -f2)
+      - echo "Environment $ENV"
       - echo "Build UUID $BUILD_UUID"
       - echo "Bucket Name $BUCKET_NAME"
   build:
@@ -17,4 +18,4 @@ phases:
       - npx playwright test test.spec.ts
   post_build:
     commands:
-      - aws s3 sync playwright-report "s3://$BUCKET_NAME/$BUILD_UUID/"
+      - aws s3 sync playwright-report "s3://$BUCKET_NAME/$ENV/$BUILD_UUID/"

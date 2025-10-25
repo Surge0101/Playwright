@@ -36,7 +36,7 @@ export class CdkStack extends cdk.Stack {
             environment: {
                 buildImage: codebuild.LinuxBuildImage.AMAZON_LINUX_2_5,
                 environmentVariables: {
-                    //NODE_ENV: { value: ${env}' },
+                    ENV: { value: 'test'},
                     BUCKET_NAME: { value: 'cdkstack-playwrightreportsbucket01c89a4895-ja8z6mlfhxnh' },
                 },
 
