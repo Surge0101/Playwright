@@ -1,0 +1,21 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "Installing dependencies"
+      - npm ci
+      - npx playwright install
+  pre_build:
+    commands:
+      - echo "Current Build ID is $CODEBUILD_BUILD_ID"
+      - BUILD_UUID=$(echo $CODEBUILD_BUILD_ID | cut -d':' -f2)
+      - echo "Build UUID $BUILD_UUID"
+      - echo "Bucket Name $BUCKET_NAME"
+  build:
+    commands:
+      - npx playwright test test.spec.ts
+  post_build:
+    commands:
+      - aws s3 sync playwright-report "s3://$BUCKET_NAME"
+     

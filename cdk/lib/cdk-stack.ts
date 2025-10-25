@@ -2,6 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as codebuild from 'aws-cdk-lib/aws-codebuild';
+import * as iam from 'aws-cdk-lib/aws-iam';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class CdkStack extends cdk.Stack {
@@ -16,17 +17,33 @@ export class CdkStack extends cdk.Stack {
             autoDeleteObjects: false,
             
         });
+
+        // const serviceRole = iam.Role.fromRoleArn(
+        //     this, 
+        //     'ImportedRole',
+        //     'arn:aws:iam::<ACCOUNT_ID>:role/YourCodeBuildRole',
+        // #use Enviroment varable line this 'arn:aws:iam::${ACCOUNT_ID}:role/YourCodeBuildRole', ???
+        // );
         // CodeBuild project to run Playwright tests
         const project = new codebuild.Project(this, 'PlaywrightTestProject01', {
             source: codebuild.Source.gitHub({
                 owner: 'Surge0101',
                 repo: 'Playwright',
+                branchOrRef: 'main'
             }),
-
+        
+            // Use a standard Linux build image that supports Playwright
             environment: {
-                buildImage: codebuild.LinuxBuildImage.STANDARD_7_0,
-            }
+                buildImage: codebuild.LinuxBuildImage.STANDARD_5_0,
+                environmentVariables: {
+                    NODE_ENV: { value: 'production' },
+                    API_URL: { value: 'https://api.example.com' },
+                },
+            },
+            buildSpec: codebuild.BuildSpec.fromSourceFilename('buildspec.yml'),
+            // role: serviceRole,
         });
+            
     }
 }
 
