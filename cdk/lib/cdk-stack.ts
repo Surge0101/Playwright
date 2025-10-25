@@ -34,7 +34,7 @@ export class CdkStack extends cdk.Stack {
         
             // Use a standard Linux build image that supports Playwright
             environment: {
-                buildImage: codebuild.LinuxBuildImage.STANDARD_5_0,
+                buildImage: codebuild.LinuxBuildImage.AMAZON_LINUX_2_4,
                 environmentVariables: {
                     NODE_ENV: { value: 'production' },
                     API_URL: { value: 'https://api.example.com' },
