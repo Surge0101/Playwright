@@ -18,13 +18,6 @@ export class CdkStack extends cdk.Stack {
             
         });
 
-        // const serviceRole = iam.Role.fromRoleArn(
-        //     this, 
-        //     'ImportedRole',
-        //     'arn:aws:iam::<ACCOUNT_ID>:role/YourCodeBuildRole',
-        // #use Enviroment varable line this 'arn:aws:iam::${ACCOUNT_ID}:role/YourCodeBuildRole', ???
-        // );
-        // CodeBuild project to run Playwright tests
         const project = new codebuild.Project(this, 'PlaywrightTestProject01', {
             source: codebuild.Source.gitHub({
                 owner: 'Surge0101',
@@ -34,14 +27,14 @@ export class CdkStack extends cdk.Stack {
         
             // Use a standard Linux build image that supports Playwright
             environment: {
-                buildImage: codebuild.LinuxBuildImage.AMAZON_LINUX_2_4,
+                buildImage: codebuild.LinuxBuildImage.AMAZON_LINUX_2_5,
                 environmentVariables: {
-                    NODE_ENV: { value: 'production' },
-                    API_URL: { value: 'https://api.example.com' },
+                    //NODE_ENV: { value: ${env}' },
+                    BUCKET_NAME: { value: 'cdkstack-playwrightreportsbucket01c89a4895-ja8z6mlfhxnh' },
                 },
             },
             buildSpec: codebuild.BuildSpec.fromSourceFilename('cdk/buildspec.yml'),
-            // role: serviceRole,
+
         });
             
     }
