@@ -17,5 +17,5 @@ phases:
       - npx playwright test test.spec.ts
   post_build:
     commands:
-      - aws s3 sync playwright-report "s3://$BUCKET_NAME"
+      - - aws s3 sync playwright-report "s3://$BUCKET_NAME/$BUILD_UUID/"
      

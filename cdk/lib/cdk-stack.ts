@@ -17,6 +17,13 @@ export class CdkStack extends cdk.Stack {
             autoDeleteObjects: false,
             
         });
+        const serviceRole = iam.Role.fromRoleArn(
+            this, 
+            'ImportedRole',
+            'arn:aws:iam::448658736684:role/service-role/AWS-Playwright',
+        //#use Enviroment varable line this 'arn:aws:iam::${ACCOUNT_ID}:role/YourCodeBuildRole', ???
+        );
+        // CodeBuild project to run Playwright tests
 
         const project = new codebuild.Project(this, 'PlaywrightTestProject01', {
             source: codebuild.Source.gitHub({
@@ -32,8 +39,11 @@ export class CdkStack extends cdk.Stack {
                     //NODE_ENV: { value: ${env}' },
                     BUCKET_NAME: { value: 'cdkstack-playwrightreportsbucket01c89a4895-ja8z6mlfhxnh' },
                 },
+
             },
             buildSpec: codebuild.BuildSpec.fromSourceFilename('cdk/buildspec.yml'),
+            role: serviceRole,
+
 
         });
             
