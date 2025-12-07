@@ -27,13 +27,14 @@ import path from 'path';
 
 const APP_NAME = process.env.APP_NAME || 'brandonApp';
 const env = process.env.ENVIRONMENT || 'dev';
+const specificEnvFile = path.resolve(__dirname, `.env.${env}`);
 dotenv.config({ path: path.resolve(__dirname, `.env.${env}`) });
-
+console.log(`Loading environment: ${env} from ${specificEnvFile}`);
 const VERSION = process.env.VERSION || '1.1.0';
 
 //4: Dynamically load env files based on ENVIRONMENT variable
 
-console.log(APP_NAME, VERSION, env)
+console.log(APP_NAME, VERSION, env);
 const RESULTS_PATH = `${APP_NAME}/${env}/${VERSION}`;
 /**
  * See https://playwright.dev/docs/test-configuration.
