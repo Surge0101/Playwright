@@ -12,7 +12,7 @@ phases:
       - BUILD_UUID=$(echo $CODEBUILD_BUILD_ID | cut -d':' -f2)
       - echo "Environment $ENV"
       - echo "Build UUID $BUILD_UUID"
-      - echo "Bucket Name $BUCKET_NAME"
+
   build:
     commands:
       - npx playwright test test.spec.ts

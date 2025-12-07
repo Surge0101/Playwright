@@ -37,14 +37,16 @@ export class CdkStack extends cdk.Stack {
                 buildImage: codebuild.LinuxBuildImage.AMAZON_LINUX_2_5,
                 environmentVariables: {
                     ENV: { value: 'test'},
-                    BUCKET_NAME: { value: 'cdkstack-playwrightreportsbucket01c89a4895-ja8z6mlfhxnh' },
                 },
 
             },
             buildSpec: codebuild.BuildSpec.fromSourceFilename('cdk/buildspec.yml'),
             role: serviceRole,
-
-
+            artifacts: codebuild.Artifacts.s3({
+                bucket: reportsBucket,
+                includeBuildId: false,
+                packageZip: false,
+            }),
         });
             
     }

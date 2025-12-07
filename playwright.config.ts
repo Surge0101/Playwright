@@ -7,7 +7,31 @@ import { defineConfig, devices } from '@playwright/test';
 // import dotenv from 'dotenv';
 // import path from 'path';
 // dotenv.config({ path: path.resolve(__dirname, '.env') });
+//1: install dotEnv dependency
+//2: create .env file under /env directory 
+/*
+  .env: 
+    APP_NAME=brandonApp
+    ENVIRONMENT=test
+  env.dev:
+    VERSION=1.0.0
+  env.test:
+    VERSION=1.1.1
+  env.uat:
+    VERSION=1.1.2
+*/
+//3: config base .env file
+// dotenv.config({ path: ('env/.env') });
 
+const APP_NAME = process.env.APP_NAME || 'brandonApp';
+const ENVIRONMENT = process.env.ENVIRONMENT || 'dev';
+
+const VERSION = process.env.VERSION || '1.1.0';
+
+//4: Dynamically load env files based on ENVIRONMENT variable
+
+console.log(APP_NAME, VERSION, ENVIRONMENT)
+const RESULTS_PATH = `${APP_NAME}/${ENVIRONMENT}/${VERSION}`;
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -22,7 +46,16 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  
+  reporter: [
+    ['list'],  // keeps default terminal output
+    ['allure-playwright', {
+      resultsDir: `allure-results/${RESULTS_PATH}`,
+      details: true,
+    }
+
+    ]
+  ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */

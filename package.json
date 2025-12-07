@@ -17,6 +17,10 @@
   "homepage": "https://github.com/Surge0101/Playwright#readme",
   "devDependencies": {
     "@playwright/test": "^1.55.0",
-    "@types/node": "^24.3.3"
+    "@types/node": "^24.3.3",
+    "allure-playwright": "^3.4.2"
+  },
+  "dependencies": {
+    "allure-commandline": "^2.34.1"
   }
 }
