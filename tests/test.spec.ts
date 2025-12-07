@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
 
 test('header fails but body passes', async ({ page }) => {
-  await page.goto('https://www.example.com');
+  await page.goto('https://www.example.com/');
 
   // Check header quickly
   const headerElement = await page.$('header'); // $ returns null if not found

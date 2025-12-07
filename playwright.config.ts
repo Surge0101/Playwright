@@ -1,4 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
+import * as dotenv from 'dotenv';
+import path from 'path';
 
 /**
  * Read environment variables from file.
@@ -24,14 +26,15 @@ import { defineConfig, devices } from '@playwright/test';
 // dotenv.config({ path: ('env/.env') });
 
 const APP_NAME = process.env.APP_NAME || 'brandonApp';
-const ENVIRONMENT = process.env.ENVIRONMENT || 'dev';
+const env = process.env.ENVIRONMENT || 'dev';
+dotenv.config({ path: path.resolve(__dirname, `.env.${env}`) });
 
 const VERSION = process.env.VERSION || '1.1.0';
 
 //4: Dynamically load env files based on ENVIRONMENT variable
 
-console.log(APP_NAME, VERSION, ENVIRONMENT)
-const RESULTS_PATH = `${APP_NAME}/${ENVIRONMENT}/${VERSION}`;
+console.log(APP_NAME, VERSION, env)
+const RESULTS_PATH = `${APP_NAME}/${env}/${VERSION}`;
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
