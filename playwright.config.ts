@@ -34,8 +34,18 @@ const VERSION = process.env.VERSION || '1.1.0';
 
 //4: Dynamically load env files based on ENVIRONMENT variable
 
+
 console.log(APP_NAME, VERSION, ENV);
 const RESULTS_PATH = `${APP_NAME}/${VERSION}/${ENV}`;
+
+// 01: Grab the target env
+
+// 02: Check if it is locdal or not
+// 03: if local, set empty allure-results path
+// 04: if not local, set allure-results path to include app name, version, env
+const AllureResultsPath = ENV === 'local' ? '' : `allure-results/${RESULTS_PATH}`;
+
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -54,7 +64,7 @@ export default defineConfig({
   reporter: [
     ['list'],  // keeps default terminal output
     ['allure-playwright', {
-      resultsDir: `allure-results/${RESULTS_PATH}`,
+      resultsDir: AllureResultsPath,
       details: true,
     }
 
