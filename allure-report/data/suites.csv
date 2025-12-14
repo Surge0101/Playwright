@@ -1,2 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","3508","header fails but body passes","chromium","Sun Nov 16 12:03:20 AWST 2025","passed","Sun Nov 16 12:03:23 AWST 2025","","test.spec.ts","",""
