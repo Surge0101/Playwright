@@ -35,7 +35,7 @@ const VERSION = process.env.VERSION || '1.1.0';
 //4: Dynamically load env files based on ENVIRONMENT variable
 
 console.log(APP_NAME, VERSION, ENV);
-const RESULTS_PATH = `${APP_NAME}/${ENV}/${VERSION}`;
+const RESULTS_PATH = `${APP_NAME}/${VERSION}/${ENV}`;
 /**
  * See https://playwright.dev/docs/test-configuration.
  */

@@ -15,7 +15,7 @@ phases:
 
   build:
     commands:
-      - ENVIROMENT=${env} npx playwright test test.spec.ts
+      - ENVIROMENT=${ENV} npx playwright test test.spec.ts
 
 artifacts:
   base-directory: playwright-report
